@@ -1,0 +1,72 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HBO API Testing",
+		"_postman_id": "e9100f0e-a261-84af-c08e-f11313af9671",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "qa author ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"OK\");",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"//postman.clearEnvironmentVariable(\"responseVariable\");",
+							"var response = JSON.parse(responseBody);",
+							"//JSON.parse(responseBody);",
+							"// response += response.statusCode + ",
+							"postman.setEnvironmentVariable(\"responseVariable\", response.statusCode);",
+							"",
+							"// var jsonData = JSON.parse(responseBody);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "admin",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://qa-author.cms.hbo.com/services/hbo/cinemax/program/videos.json?pagePath=/content/cinemax/en/series/banshee/videos",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Verifying API response and load testing"
+			},
+			"response": []
+		},
+		{
+			"name": "https://hooks.slack.com/services/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",
+			"request": {
+				"url": "https://hooks.slack.com/services/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",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"text\": \"{{responseVariable}}\"}"
+				},
+				"description": "Create slack webhook post request"
+			},
+			"response": []
+		}
+	]
+}
